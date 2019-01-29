@@ -35,8 +35,8 @@ class Trainer:
             err = self.criterion(score, target)
             # divide err by batch_size so that err.backward() accumulate the average gradients
             err = err / batch_size
-            loss += err.data[0]
-            # loss += err.item()
+            # loss += err.data[0]
+            loss += err.item()
             err.backward()
             k += 1
             if k % batch_size == 0 or idx == len(train_set) - 1:
@@ -49,8 +49,8 @@ class Trainer:
                     eval_func()
                     self.model.train()
             progress_bar(k, len(train_set),
-                         msg='Train epoch {} pred {} target {}'.format(self.epoch + 1, pred.data[0][0], target.data[0]))
-                        # msg = 'Train epoch {} pred {} target {}'.format(self.epoch + 1, pred.data[0].item(), target.data[0]))
+                         # msg='Train epoch {} pred {} target {}'.format(self.epoch + 1, pred.data[0][0], target.data[0]))
+                        msg = 'Train epoch {} pred {} target {}'.format(self.epoch + 1, pred.data[0].item(), target.data[0].item()))
 
             self.epoch += 1
         return loss / len(train_set)
@@ -69,11 +69,12 @@ class Trainer:
             if self.use_cuda:
                 left_input, right_input = left_input.cuda(), right_input.cuda()
             pred, score = self.model(left_input, right_input, inst)
-            predictions.append(pred.data[0][0])
+            # predictions.append(pred.data[0][0])
+            predictions.append(pred.data[0].item())
             gold_labels.append(inst.label)
-            if pred.data[0][0] in gold_labels[-1]:
+            if pred.data[0].item() in gold_labels[-1]: # modify
                 correct += 1
             progress_bar(idx, len(test_set),
                          msg='Eval epoch {} on {} pred {} target {}'.format(self.epoch, dataset_name,
-                                                                            pred.data[0][0], gold_labels[-1]))
+                                                                            pred.data[0].item(), gold_labels[-1])) # modify
         return correct / len(test_set)

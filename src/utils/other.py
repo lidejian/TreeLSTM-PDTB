@@ -8,10 +8,10 @@ import time
 import sys
 
 # _, term_width = os.popen('stty size', 'r').read().split()
-term_width=300
+term_width=50
 term_width = int(term_width)
 
-TOTAL_BAR_LENGTH = 86.
+TOTAL_BAR_LENGTH = 46.
 last_time = time.time()
 begin_time = last_time
 
