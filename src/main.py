@@ -27,7 +27,7 @@ def parse_args():
                               choices=['lstm', 'bi-lstm', 'gru', 'bi-gru', 'recursive-nn',
                                        'child-sum-lstm', 'binary-tree-lstm', 'binary-tree-gru',
                                        'labeled-binary-tree-lstm', 'labeled-binary-tree-gru'],
-                              default='lstm', help='argument encoder type')
+                              default='bi-lstm', help='argument encoder type')
     train_parser.add_argument('--batch_size', default=10, type=int,
                               help='batch size for optimizer updates')
     train_parser.add_argument('--epochs', default=15, type=int,

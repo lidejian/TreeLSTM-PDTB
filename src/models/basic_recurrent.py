@@ -26,6 +26,7 @@ class BasicLSTM(nn.Module):
             outputs = outputs.squeeze(1)
             hn = hn.sum(0)
             cn = cn.sum(0)
+            return outputs, (cn, hn)
         return outputs, (cn.squeeze(0), hn.squeeze(0))
 
 
