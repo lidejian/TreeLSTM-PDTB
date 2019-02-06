@@ -54,6 +54,7 @@ class BinaryTreeLSTM(nn.Module):
             if self.use_cuda:
                 node_word = node_word.cuda()
             word_embed = self.word_embed_func(node_word)
+            word_embed = torch.unsqueeze(word_embed, 0) # add a dimension
         else:
             word_embed = Variable(torch.zeros(1, self.word_embed_dim))
             if self.use_cuda:
@@ -127,6 +128,7 @@ class LabeledBinaryTreeLSTM(nn.Module):
             if self.use_cuda:
                 node_word = node_word.cuda()
             word_embed = self.word_embed_func(node_word)
+            word_embed = torch.unsqueeze(word_embed, 0)  # add a dimension
         else:
             word_embed = Variable(torch.zeros(1, self.word_embed_dim))
             if self.use_cuda:
