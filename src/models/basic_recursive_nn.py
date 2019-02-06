@@ -40,6 +40,6 @@ class BasicRecursiveNN(nn.Module):
             if len(child_states) == 1:
                 return child_states[0]
             else:
-                node_state = torch.tanh(self.fc(torch.cat([child_states[0], child_states[1]], 1)))
+                node_state = torch.tanh(self.fc(torch.cat([child_states[0], child_states[1]], 0)))## 修改
                 outputs.append(node_state)
                 return node_state

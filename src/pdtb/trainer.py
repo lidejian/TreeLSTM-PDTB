@@ -23,7 +23,8 @@ class Trainer:
         self.model.train()
         self.optimizer.zero_grad()
         loss, k, batch_cnt = 0.0, 0, 0
-        indices = torch.randperm(len(train_set))
+        # indices = torch.randperm(len(train_set))  ##############test
+        indices = list(range(len(train_set)))
         for idx in range(len(train_set)):
             inst = train_set[indices[idx]]
             left_input = inst.left_words

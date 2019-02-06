@@ -39,7 +39,8 @@ class RelationClassifier(nn.Module):
         return pred, score
 
     def output_layer(self, left_h, right_h):
-        score = self.output_linear(torch.cat([left_h, right_h], 1))
+        score = self.output_linear(torch.cat([left_h, right_h], 1)) # lstm:left_h,right_h:[1,50],
+        # return torch.unsqueeze(score, 0)
         return score
 
     def encode_argument(self, tree, words):
@@ -56,6 +57,7 @@ class RelationClassifier(nn.Module):
         elif self.encoder_type == 'recursive-nn':
             outputs, hidden = self.argument_encoder(tree.root, words)
             state = None
+            hidden = torch.unsqueeze(hidden, 0) # change hidden [50] to [1,50]
         else:
             raise NotImplementedError('Unsupported encoder type {}'.format(self.encoder_type))
         return outputs, (state, hidden)
