@@ -21,4 +21,5 @@ class PathConfig:
 
 class ModelConfig:
     tag_embed_dim = 50
-    lstm_hidden_size = 250
+    # lstm_hidden_size = 250
+    lstm_hidden_size = 50

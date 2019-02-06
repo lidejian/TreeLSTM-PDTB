@@ -37,11 +37,12 @@ class BasicGRU(nn.Module):
         self.embed_dim = embed_dim
         self.hidden_size = hidden_size
         self.bidirectional = bidirectional
-        self.emb = nn.Embedding(vocab_size, embed_dim)
+        # self.emb = nn.Embedding(vocab_size, embed_dim)
+        self.word_embed_func = nn.Embedding(vocab_size, embed_dim)
         self.rnn = nn.GRU(input_size=embed_dim, hidden_size=hidden_size, num_layers=1, bidirectional=bidirectional)
 
     def forward(self, inputs):
-        embeds = torch.unsqueeze(self.emb(inputs), 1)
+        embeds = torch.unsqueeze(self.word_embed_func(inputs), 1)
         outputs, hn = self.rnn(embeds)
         if self.bidirectional:
             outputs = outputs.view(outputs.size(0), outputs.size(1), 2, -1)
@@ -49,4 +50,5 @@ class BasicGRU(nn.Module):
             outputs = outputs.squeeze(1)
             outputs = outputs.squeeze(1)
             hn = hn.sum(0)
+            return outputs, hn
         return outputs, hn.squeeze(0)

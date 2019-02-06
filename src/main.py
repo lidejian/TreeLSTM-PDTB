@@ -3,7 +3,7 @@
 # author: yizhong
 # created_at: 17-5-23 下午3:54
 
-
+# cd D:\stanford-corenlp-full-2016-10-31
 # java -mx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9000 -timeout 15000
 
 
@@ -27,7 +27,7 @@ def parse_args():
                               choices=['lstm', 'bi-lstm', 'gru', 'bi-gru', 'recursive-nn',
                                        'child-sum-lstm', 'binary-tree-lstm', 'binary-tree-gru',
                                        'labeled-binary-tree-lstm', 'labeled-binary-tree-gru'],
-                              default='bi-lstm', help='argument encoder type')
+                              default='bi-gru', help='argument encoder type')
     train_parser.add_argument('--batch_size', default=10, type=int,
                               help='batch size for optimizer updates')
     train_parser.add_argument('--epochs', default=15, type=int,
